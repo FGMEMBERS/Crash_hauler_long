@@ -1,0 +1,256 @@
+<?xml version="1.0"?>
+<!-- $Id: crash_hauler_long-set.xml, v1.0 2011-01-23 Pebinc Exp $ -->
+<!--
+
+Crash "hauler" - heavily revised model of the following:
+
+  Crash tender / fire truck model for FlightGear.
+
+  Copyright (C) 2007 - 2010  Anders Gidenstam  (anders(at)gidenstam.org)
+  This file is licensed under the GPL license version 2 or later.
+
+  Original 3d model is by Alexis Bory.
+  bo105 model by Melchior Franz and Maik Justus
+-->
+<PropertyList>
+
+ <sim>
+
+  <description>Crash hauler long</description>
+  <author>Anders Gidenstam, Peter Brown</author>
+  <status>Ground Vehicle</status>
+  <aircraft-version>0.2</aircraft-version>
+
+  <flight-model>jsb</flight-model>
+  <aero>crash_hauler_long</aero>
+
+  <presets>
+   <onground>true</onground>
+  </presets>
+
+
+  <startup>
+   <splash-texture>Aircraft/Crash_hauler_long/crash_hauler_long-splash.png</splash-texture>
+  </startup>
+        
+  <sound>
+   <path>Aircraft/Crash_hauler_long/Sounds/hauler-sound.xml</path>
+  </sound>
+
+  <model>
+   <path>Aircraft/Crash_hauler_long/Models/crash_hauler_long.xml</path>
+  </model>
+
+  <submodels>
+   <serviceable type="bool">true</serviceable>
+   <path>Aircraft/Crash_hauler_long/submodels.xml</path>
+  </submodels>
+ 
+  <systems>
+
+   <electrical>
+    <path/>
+   </electrical>
+
+   <static>
+   </static>
+
+  </systems>
+  <instrumentation>
+   <path/>
+  </instrumentation>
+
+  <view n="0">
+   <internal archive="y">true</internal>
+   <config>
+    <!-- x/y/z == right/up/back -->
+    <x-offset-m archive="y"> -0.6</x-offset-m>
+    <y-offset-m archive="y"> 2.77</y-offset-m>
+    <z-offset-m archive="y">-2.71</z-offset-m>
+    <pitch-offset-deg>-5</pitch-offset-deg>
+    <default-field-of-view-deg type="double">66.0</default-field-of-view-deg>
+   </config>
+  </view>
+
+  <view>
+    <name>Helicopter View</name>
+    <enabled type="bool" userarchive="y">true</enabled>
+    <type>lookat</type>
+    <config>
+      <from-model type="bool">false</from-model>
+      <from-model-idx type="int">0</from-model-idx>
+      <eye-lat-deg-path>/position/latitude-deg</eye-lat-deg-path>
+      <eye-lon-deg-path>/position/longitude-deg</eye-lon-deg-path>
+      <eye-alt-ft-path>/position/altitude-ft</eye-alt-ft-path>
+      <eye-heading-deg-path>/orientation/heading-deg</eye-heading-deg-path>
+
+      <at-model type="bool">true</at-model>
+      <at-model-idx type="int">0</at-model-idx>
+      <at-model-heading-damping type="double">0.0</at-model-heading-damping>
+      <target-z-offset-m type="double">2</target-z-offset-m>
+
+      <ground-level-nearplane-m type="double">0.5f</ground-level-nearplane-m>
+      <default-field-of-view-deg type="double">55.0</default-field-of-view-deg>
+
+      <x-offset-m type="double">0</x-offset-m>
+      <y-offset-m type="double">2</y-offset-m>
+      <z-offset-m type="double">-25</z-offset-m>
+    </config>
+  </view>
+
+
+  <chase-distance-m type="double" archive="y">-25.0</chase-distance-m>
+
+  <multiplay>
+    <generic>
+     <int n="0" type="int">0</int>   <!-- Foam Beam -->
+     <int n="9" alias="/controls/gear/brake-right"/>
+     <int n="10" alias="/controls/gear/brake-left"/>
+     <int n="11" alias="/fdm/jsbsim/fcs/throttle-pos-norm"/>
+     <int n="12" alias="/controls/engines/engine/throttle"/>
+     <int n="13" alias="/controls/gear/brake-parking"/>
+
+
+        <float n="0"></float> <!-- Rotating beacon flash -->
+        <float n="11" alias="/fdm/jsbsim/fcs/throttle-pos-norm"/>	 
+        <float n="12" alias="/controls/engines/engine/throttle"/>
+	<float n="14" alias="/fdm/jsbsim/gear/unit[0]/wheel-speed-fps"/>
+	<float n="15" alias="/fdm/jsbsim/gear/unit[1]/wheel-speed-fps"/>	
+	<float n="16" alias="/fdm/jsbsim/gear/unit[2]/wheel-speed-fps"/>
+	<float n="17" alias="/fdm/jsbsim/gear/unit[3]/wheel-speed-fps"/>	
+      </generic>
+    </multiplay>
+
+  <help>
+   <key>
+    <name>,</name>
+    <desc>Brakes.</desc>
+   </key>
+   <key>
+    <name>.</name>
+    <desc>Accelerator.</desc>
+   </key>
+   <key>
+    <name>Shift R</name>
+    <desc>Toggle Forward/Reverse</desc>
+   </key>
+   <key>
+    <name>Shift B</name>
+    <desc>Toggle parking brake.</desc>
+   </key>
+   <key>
+    <name>f</name>
+    <desc>Fire foam projector.</desc>
+   </key>
+   <key>
+    <name>d</name>
+    <desc>Pull Ripcord</desc>
+   </key>
+   <key>
+    <name>j</name>
+    <desc>Jettison Drag Chute</desc>
+   </key>
+  </help>
+
+ </sim>
+
+ <nasal>
+  <BeamControl>
+   <script>
+######################################################################
+controls.trigger = func (b) {
+  setprop("/sim/multiplay/generic/int[0]", b);
+  if (b) {
+    settimer(func {
+      if (getprop("/sim/multiplay/generic/int[0]"))
+        setprop("/tmp/foam-trigger", 1);
+    }, 2);
+  } else {
+    setprop("/tmp/foam-trigger", 0);
+  }
+};
+######################################################################
+var resolve_impact = func (n) {
+  print("Foam impact!");
+  var node = props.globals.getNode(n.getValue());
+  var pos  = geo.Coord.new().set_latlon
+                 (node.getNode("impact/latitude-deg").getValue(),
+                  node.getNode("impact/longitude-deg").getValue(),
+                  node.getNode("impact/elevation-m").getValue());
+  wildfire.resolve_foam_drop(pos, 10, 0);
+}
+setlistener("/sim/ai/aircraft/impact/foam", resolve_impact); 
+print("Wildfire integration ... initialized.");
+######################################################################
+   </script>
+  </BeamControl>
+ </nasal>
+
+ <input>
+  <keyboard>
+   <key n="82">
+    <name>R</name>
+    <desc>Toggle reverse gear.</desc>
+    <binding>
+     <command>nasal</command>
+     <script>
+      var dir = "/fdm/jsbsim/propulsion/engine/yaw-angle-rad";
+      setprop(dir, (getprop(dir) == 0) ? 3.14159265 : 0.0);
+     </script>
+    </binding>
+	</key>
+
+   <key n="102">
+    <name>f</name>
+    <desc>Fire foam projector.</desc>
+    <binding>
+     <command>nasal</command>
+     <script>
+      controls.trigger(1);
+     </script>
+    </binding>
+    <mod-up>
+     <binding>
+      <command>nasal</command>
+      <script>
+       controls.trigger(0);
+      </script>
+     </binding>
+    </mod-up>
+   </key>
+
+   <key n="100">
+     <name>d</name>
+     <desc>Pull Ripcord</desc>
+     <binding>
+      <command>property-assign</command>
+      <property>fdm/jsbsim/systems/chute/deploy</property>
+      <value type="int">1</value>
+     </binding>
+    </key>
+
+
+    <key n="106">
+      <name>j</name>
+      <desc>Cut Away Parachute</desc>
+      <binding>
+       <command>property-assign</command>
+       <property>fdm/jsbsim/systems/chute/deploy</property>
+       <value type="int">0</value>
+      </binding>
+      <binding>
+       <command>property-assign</command>
+       <property>controls/flight/chute_jettisoned</property>
+       <value type="int">1</value>
+      </binding>
+      <binding>
+       <command>property-assign</command>
+       <property>controls/flight/chute_jettisoned</property>
+       <value type="int">0</value>
+      </binding>
+    </key>
+
+  </keyboard>
+ </input>
+
+</PropertyList>

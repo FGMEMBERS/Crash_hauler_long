@@ -1,0 +1,750 @@
+<?xml version="1.0"?>
+<!-- (C) 2008  Anders Gidenstam.
+     Distribution: GPL v2 or later.
+-->
+<PropertyList>
+
+ <path>crash_copter_hauler.ac</path>
+ <!-- x/y/z == back/right/up -->
+
+ <!-- Parachute -->
+ <model>
+   <path>Aircraft/DavePack/Stores/Chute/chute.xml</path>
+   <offsets>
+     <x-m>4</x-m>
+     <y-m>1.2</y-m>
+     <z-m>1.52</z-m>
+     <pitch-deg>-10</pitch-deg>
+   </offsets>
+ </model>
+
+ <!-- Parachute -->
+ <model>
+   <path>Aircraft/DavePack/Stores/Chute/chute.xml</path>
+   <offsets>
+     <x-m>4</x-m>
+     <y-m>-1.2</y-m>
+     <z-m>1.52</z-m>
+     <pitch-deg>-10</pitch-deg>
+   </offsets>
+ </model>
+
+ <!-- beacon flash -->
+ <model>
+   <path>Aircraft/DavePack/Effects/Red-beacon/flash.xml</path>
+   <offsets>
+     <x-m>-2.32</x-m>
+     <y-m>-1.0</y-m>
+     <z-m>3.66</z-m>
+   </offsets>
+ </model>
+
+ <model>
+   <path>Aircraft/DavePack/Effects/Red-beacon/flash.xml</path>
+   <offsets>
+     <x-m>-2.32</x-m>
+     <y-m>1.0</y-m>
+     <z-m>3.66</z-m>
+   </offsets>
+ </model>
+
+ <particlesystem>
+  <name>FoamBeam</name>
+  <type>normal</type>
+  <texture>foam.png</texture>
+  <emissive>false</emissive>
+  <lighting>false</lighting>
+
+  <condition>
+   <property>sim/multiplay/generic/int[0]</property>
+  </condition>
+
+  <offsets>
+   <x-m>-4.02</x-m>
+   <y-m>0</y-m>
+   <z-m>3.62</z-m>
+  </offsets>
+
+  <attach>world</attach>
+  <placer>
+   <type>point</type>
+  </placer>
+
+  <shooter>
+   <theta-min-deg>75.25</theta-min-deg>
+   <theta-max-deg>75.75</theta-max-deg>
+   <phi-min-deg>179.75</phi-min-deg>
+   <phi-max-deg>180.25</phi-max-deg>
+   <speed-mps>
+    <value>25</value>
+    <spread>0</spread>
+   </speed-mps>
+  </shooter>
+
+  <counter>
+   <particles-per-sec>
+    <value>25.0</value>
+    <spread>0</spread>
+   </particles-per-sec>
+  </counter>
+
+  <align>billboard</align>
+
+  <particle>
+   <start>
+    <color>
+     <red><value>1.0</value></red>
+     <green><value>1.0</value></green>
+     <blue><value>1.0</value></blue>
+     <alpha><value>1</value></alpha>
+    </color>
+    <size>
+     <value>0.2</value>
+     <spread>0</spread>
+    </size>
+   </start>
+   <end>
+    <color>
+     <red><value>1.0</value></red>
+     <green><value>1.0</value></green>
+     <blue><value>1.0</value></blue>
+     <alpha><value>0.8</value></alpha>
+    </color>
+    <size>
+     <value>1.5</value>
+     <spread>0.125</spread>
+    </size>
+   </end>
+
+   <life-sec>
+    <value>1.5</value>
+   </life-sec>
+   <mass-kg>4</mass-kg>
+   <radius-m>0.2</radius-m>
+  </particle>
+
+  <program>
+   <fluid>air</fluid>
+   <gravity>true</gravity>
+   <wind>false</wind>
+  </program>
+
+ </particlesystem>
+
+<animation>
+  <type>rotate</type>
+  <object-name>arm</object-name>
+  <object-name>knob</object-name>
+  <property>/controls/engines/engine/throttle</property>
+  <factor>-90</factor>
+  <center>
+   <x-m>-3.71</x-m>
+   <y-m>-0.79</y-m>
+   <z-m>2.31</z-m>
+  </center>
+  <axis>
+   <x>0.0</x>
+   <y>1.0</y>
+   <z>0.0</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>steeringwheel</object-name>
+  <property>surface-positions/rudder-pos-norm</property>
+  <factor>-150</factor>
+<axis>
+ <x2-m>-3.37</x2-m>
+ <y2-m>-0.6</y2-m>
+ <z2-m>2.50</z2-m>
+ <x1-m>-3.78</x1-m>
+ <y1-m>-0.6</y1-m>
+ <z1-m>1.56</z1-m>
+</axis>
+ </animation>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>wheelLF</object-name>
+    <object-name>leftfrontdisk</object-name>
+  <property>surface-positions/rudder-pos-norm</property>
+  <interpolation>
+   <entry>
+    <ind>-1.0</ind>
+    <dep>30</dep>
+   </entry>
+   <entry>
+    <ind>0</ind>
+    <dep>0</dep>
+   </entry>
+   <entry>
+    <ind>1.0</ind>
+    <dep>-30</dep>
+   </entry>
+  </interpolation>
+  <center>
+   <x-m>-2.09</x-m>
+   <y-m>-1.0</y-m>
+   <z-m>0.69</z-m>
+  </center>
+  <axis>
+   <x>0.0</x>
+   <y>0.0</y>
+   <z>1.0</z>
+  </axis>
+ </animation>
+
+<animation>
+    <type>translate</type>
+    <object-name>wheelLF</object-name>
+    <object-name>leftfrontdisk</object-name>
+    <object-name>leftfrontaxle</object-name>
+    <property>gear/gear[0]/compression-norm</property>
+    <factor>.15</factor>
+    <axis>
+   <x>0</x>
+   <y>0</y>
+   <z>1</z>
+    </axis>
+  </animation>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>wheelRF</object-name>
+    <object-name>rightfrontdisk</object-name>
+  <property>surface-positions/rudder-pos-norm</property>
+  <interpolation>
+   <entry>
+    <ind>-1.0</ind>
+    <dep>30</dep>
+   </entry>
+   <entry>
+    <ind>0</ind>
+    <dep>0</dep>
+   </entry>
+   <entry>
+    <ind>1.0</ind>
+    <dep>-30</dep>
+   </entry>
+  </interpolation>
+  <center>
+   <x-m>-2.09</x-m>
+   <y-m> 1.0</y-m>
+   <z-m>0.69</z-m>
+  </center>
+  <axis>
+   <x>0.0</x>
+   <y>0.0</y>
+   <z>1.0</z>
+  </axis>
+ </animation>
+
+<animation>
+    <type>translate</type>
+    <object-name>wheelRF</object-name>
+    <object-name>rightfrontdisk</object-name>
+    <object-name>rightfrontaxle</object-name>
+    <property>gear/gear[1]/compression-norm</property>
+    <factor>.15</factor>
+    <axis>
+   <x>0</x>
+   <y>0</y>
+   <z>1</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>spin</type>
+    <object-name>wheelLF</object-name>
+    <object-name>leftfrontdisk</object-name>
+  <property>fdm/jsbsim/gear/unit[0]/wheel-speed-fps</property>
+  <factor>-1.5</factor>
+  <center>
+   <x-m>-2.09</x-m>
+   <y-m>-1.0</y-m>
+   <z-m>0.69</z-m>
+  </center>
+  <axis>
+   <x>0.0</x>
+   <y>1.0</y>
+   <z>0.0</z>
+  </axis>
+  </animation>
+
+
+  <animation>
+    <type>spin</type>
+    <object-name>wheelRF</object-name>
+    <object-name>rightfrontdisk</object-name>
+  <property>fdm/jsbsim/gear/unit[1]/wheel-speed-fps</property>
+  <factor>-1.5</factor>
+  <center>
+   <x-m>-2.09</x-m>
+   <y-m> 1.0</y-m>
+   <z-m>0.69</z-m>
+  </center>
+  <axis>
+   <x>0.0</x>
+   <y>1.0</y>
+   <z>0.0</z>
+  </axis>
+  </animation>
+ 
+<animation>
+    <type>translate</type>
+    <object-name>wheelLR</object-name>
+    <object-name>leftreardisk</object-name>
+    <object-name>rearaxle</object-name>
+    <object-name>pumpkin</object-name>
+    <property>gear/gear[2]/compression-norm</property>
+    <factor>.15</factor>
+    <axis>
+   <x>0</x>
+   <y>0</y>
+   <z>1</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>spin</type>
+    <object-name>wheelLR</object-name>
+    <object-name>leftreardisk</object-name>
+  <property>fdm/jsbsim/gear/unit[2]/wheel-speed-fps</property>
+  <factor>-1.5</factor>
+  <center>
+   <x-m>3.23</x-m>
+   <y-m>-1.0</y-m>
+   <z-m>0.69</z-m>
+  </center>
+  <axis>
+   <x>0.0</x>
+   <y>1.0</y>
+   <z>0.0</z>
+  </axis>
+  </animation>
+
+<animation>
+    <type>translate</type>
+    <object-name>wheelRR</object-name>
+    <object-name>rightreardisk</object-name>
+    <property>gear/gear[3]/compression-norm</property>
+    <factor>.15</factor>
+    <axis>
+   <x>0</x>
+   <y>0</y>
+   <z>1</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>spin</type>
+    <object-name>wheelRR</object-name>
+    <object-name>rightreardisk</object-name>
+  <property>fdm/jsbsim/gear/unit[3]/wheel-speed-fps</property>
+  <factor>-1.5</factor>
+  <center>
+   <x-m>3.23</x-m>
+   <y-m> 1.0</y-m>
+   <z-m>0.69</z-m>
+  </center>
+  <axis>
+   <x>0.0</x>
+   <y>1.0</y>
+   <z>0.0</z>
+  </axis>
+  </animation>
+
+<animation>
+    <type>translate</type>
+    <object-name>wheelLRR</object-name>
+    <object-name>leftrearreardisk</object-name>
+    <object-name>rearrearaxle</object-name>
+    <object-name>rearpumpkin</object-name>
+    <property>gear/gear[4]/compression-norm</property>
+    <factor>.15</factor>
+    <axis>
+   <x>0</x>
+   <y>0</y>
+   <z>1</z>
+    </axis>
+  </animation>
+
+   <animation>
+    <type>spin</type>
+    <object-name>wheelLRR</object-name>
+    <object-name>leftrearreardisk</object-name>
+  <property>fdm/jsbsim/gear/unit[4]/wheel-speed-fps</property>
+  <factor>-1.5</factor>
+  <center>
+   <x-m>4.85</x-m>
+   <y-m>-1.0</y-m>
+   <z-m>0.70</z-m>
+  </center>
+  <axis>
+   <x>0.0</x>
+   <y>1.0</y>
+   <z>0.0</z>
+  </axis>
+  </animation>
+
+<animation>
+    <type>translate</type>
+    <object-name>wheelRRR</object-name>
+    <object-name>rightrearreardisk</object-name>
+    <property>gear/gear[5]/compression-norm</property>
+    <factor>.15</factor>
+    <axis>
+   <x>0</x>
+   <y>0</y>
+   <z>1</z>
+    </axis>
+  </animation>
+
+
+  <animation>
+    <type>spin</type>
+    <object-name>wheelRRR</object-name>
+    <object-name>rightrearreardisk</object-name>
+  <property>fdm/jsbsim/gear/unit[5]/wheel-speed-fps</property>
+  <factor>-1.5</factor>
+  <center>
+   <x-m>4.85</x-m>
+   <y-m> 1.0</y-m>
+   <z-m>0.70</z-m>
+  </center>
+  <axis>
+   <x>0.0</x>
+   <y>1.0</y>
+   <z>0.0</z>
+  </axis>
+  </animation>
+
+
+ <animation>
+  <type>range</type>
+  <min-m>0</min-m>
+  <max-m>5000</max-m>
+ </animation>
+
+ <!-- Rotating beacon flash -->
+ <animation>
+  <type>material</type>
+  <object-name>Beacon</object-name>
+  <emission>
+    <factor-prop>sim/multiplay/generic/int[10]</factor-prop>
+    <red>1</red>
+    <green>0</green>
+    <blue>0</blue>
+  </emission>
+ </animation>
+
+<animation>
+  <type>material</type>
+  <object-name>Face</object-name>
+  <object-name>Needle1</object-name>
+  <object-name>Mach1</object-name>
+  <object-name>Mach2</object-name>
+  <emission>
+    <red>0.8</red>
+    <green>0.4</green>
+    <blue>0.2</blue>
+    <factor-prop>/controls/lighting/panel-norm</factor-prop>
+  </emission>
+</animation>
+
+<animation>
+  <type>rotate</type>
+  <object-name>Needle1</object-name>
+  <property>/velocities/groundspeed-kt</property>
+  <interpolation>
+    <entry>
+      <ind>0</ind>
+      <dep>-9.5</dep>
+    </entry>
+    <entry>
+      <ind>60</ind>
+      <dep>0</dep>
+    </entry>
+    <entry>
+      <ind>250</ind>
+      <dep>244</dep>
+    </entry>
+    <entry>
+      <ind>300</ind>
+      <dep>265.5</dep>
+    </entry>
+    <entry>
+      <ind>450</ind>
+      <dep>331</dep>
+    </entry>
+  </interpolation>
+<axis>
+ <x2-m>-3.6762</x2-m>
+ <y2-m>-0.723248</y2-m>
+ <z2-m>2.35399</z2-m>
+ <x1-m>-3.61193</x1-m>
+ <y1-m>-0.723248</y1-m>
+ <z1-m>2.40171</z1-m>
+</axis>
+</animation>
+
+<!--  Mach digits -->
+
+<animation>
+  <type>textranslate</type>
+  <object-name>Mach1</object-name>
+  <property>/velocities/mach</property>
+  <factor>1.0</factor>
+  <step>0.1</step>
+  <axis>
+    <x>0</x>
+    <y>1</y>
+    <z>0</z>
+  </axis>
+</animation>
+
+<animation>
+  <type>textranslate</type>
+  <object-name>Mach2</object-name>
+  <property>/velocities/mach</property>
+  <factor>10</factor>
+  <step>.01</step>
+  <axis>
+    <x>0</x>
+    <y>1</y>
+    <z>0</z>
+  </axis>
+</animation>
+
+
+<animation>
+  <type>material</type>
+  <object-name>MDI.Card</object-name>
+  <object-name>MDI.Face</object-name>
+  <object-name>MDI.HdgBug</object-name>
+  <object-name>MDI.Needle</object-name>
+  <emission>
+    <red>0.8</red>
+    <green>0.4</green>
+    <blue>0.2</blue>
+    <factor-prop>/controls/lighting/panel-norm</factor-prop>
+  </emission>
+</animation>
+
+<animation>
+  <type>rotate</type>
+  <object-name>MDI.Card</object-name>
+  <property>/orientation/heading-deg</property>
+  <factor>1</factor>
+<axis>
+ <x2-m>-3.60743</x2-m>
+ <y2-m>-0.492607</y2-m>
+ <z2-m>2.4046</z2-m>
+ <x1-m>-3.67769</x1-m>
+ <y1-m>-0.492607</y1-m>
+ <z1-m> 2.35763</z1-m>
+</axis>
+</animation>
+
+<animation>
+  <type>rotate</type>
+  <object-name>MDI.HdgBug</object-name>
+  <property>/autopilot/settings/heading-bug-deg</property>
+<axis>
+ <x2-m>-3.60743</x2-m>
+ <y2-m>-0.492607</y2-m>
+ <z2-m>2.4046</z2-m>
+ <x1-m>-3.67769</x1-m>
+ <y1-m>-0.492607</y1-m>
+ <z1-m> 2.35763</z1-m>
+</axis>
+</animation>
+
+<animation>
+  <type>rotate</type>
+  <object-name>MDI.HdgBug</object-name>
+  <property>/orientation/heading-deg</property>
+  <factor>1</factor>
+<axis>
+ <x2-m>-3.60743</x2-m>
+ <y2-m>-0.492607</y2-m>
+ <z2-m>2.4046</z2-m>
+ <x1-m>-3.67769</x1-m>
+ <y1-m>-0.492607</y1-m>
+ <z1-m> 2.35763</z1-m>
+</axis>
+</animation>
+
+
+  <!-- brake lights -->
+
+ <model>
+   <path>RedLight.xml</path>
+<condition>
+<or>
+<greater-than>
+   <property>sim/multiplay/generic/int[9]</property>
+	<value>.25</value>
+</greater-than>
+   <property>sim/multiplay/generic/int[13]</property>
+</or>
+</condition>
+   <offsets>
+     <x-m>5.86</x-m>
+     <y-m>1.43676</y-m>
+     <z-m>1.36819</z-m>
+   </offsets>
+ </model>
+
+ <model>
+   <path>RedLight.xml</path>
+<condition>
+<or>
+<greater-than>
+   <property>sim/multiplay/generic/int[9]</property>
+	<value>.25</value>
+</greater-than>
+   <property>sim/multiplay/generic/int[13]</property>
+</or>
+</condition>
+   <offsets>
+     <x-m>5.86</x-m>
+     <y-m>1.28785</y-m>
+     <z-m>1.36819</z-m>
+   </offsets>
+ </model>
+
+ <model>
+<condition>
+<or>
+<greater-than>
+   <property>sim/multiplay/generic/int[9]</property>
+	<value>.25</value>
+</greater-than>
+   <property>sim/multiplay/generic/int[13]</property>
+</or>
+</condition>
+   <path>RedLight.xml</path>
+   <offsets>
+     <x-m>5.86</x-m>
+     <y-m>1.07594 </y-m>
+     <z-m>1.36819</z-m>
+   </offsets>
+ </model>
+
+ <model>
+<condition>
+<or>
+<greater-than>
+   <property>sim/multiplay/generic/int[9]</property>
+	<value>.25</value>
+</greater-than>
+   <property>sim/multiplay/generic/int[13]</property>
+</or>
+</condition>
+   <path>RedLight.xml</path>
+   <offsets>
+     <x-m>5.86</x-m>
+     <y-m>0.927034</y-m>
+     <z-m>1.36819</z-m>
+   </offsets>
+ </model>
+
+ <model>
+<condition>
+<or>
+<greater-than>
+   <property>sim/multiplay/generic/int[10]</property>
+	<value>.25</value>
+</greater-than>
+   <property>sim/multiplay/generic/int[13]</property>
+</or>
+</condition>
+   <path>RedLight.xml</path>
+   <offsets>
+     <x-m>5.86</x-m>
+     <y-m>-0.839336</y-m>
+     <z-m>1.36819</z-m>
+   </offsets>
+ </model>
+
+ <model>
+<condition>
+<or>
+<greater-than>
+   <property>sim/multiplay/generic/int[10]</property>
+	<value>.25</value>
+</greater-than>
+   <property>sim/multiplay/generic/int[13]</property>
+</or>
+</condition>
+   <path>RedLight.xml</path>
+   <offsets>
+     <x-m>5.86</x-m>
+     <y-m>-0.987284</y-m>
+     <z-m>1.36819</z-m>
+   </offsets>
+ </model>
+
+<model>
+<condition>
+<or>
+<greater-than>
+   <property>sim/multiplay/generic/int[10]</property>
+	<value>.25</value>
+</greater-than>
+   <property>sim/multiplay/generic/int[13]</property>
+</or>
+</condition>
+   <path>RedLight.xml</path>
+   <offsets>
+     <x-m>5.86</x-m>
+     <y-m>-1.19783</y-m>
+     <z-m>1.36819</z-m>
+   </offsets>
+ </model>
+
+ <model>
+<condition>
+<or>
+<greater-than>
+   <property>sim/multiplay/generic/int[10]</property>
+	<value>.25</value>
+</greater-than>
+   <property>sim/multiplay/generic/int[13]</property>
+</or>
+</condition>
+   <path>RedLight.xml</path>
+   <offsets>
+     <x-m>5.86</x-m>
+     <y-m>-1.34577</y-m>
+     <z-m>1.36819</z-m>
+   </offsets>
+ </model>
+
+ <!-- Smoke -->
+  <model>
+    <path>smoke.xml</path>
+    <offsets>
+      <x-m>  -1.92 </x-m>
+      <y-m>  .43 </y-m>
+      <z-m> 4.33</z-m>
+      <pitch-deg> 0</pitch-deg>
+    </offsets>
+  </model>
+<!-- Smoke -->
+  <model>
+    <path>smoke.xml</path>
+    <offsets>
+      <x-m> -1.92 </x-m>
+      <y-m>  -.43 </y-m>
+      <z-m> 4.33</z-m>
+      <pitch-deg> 0</pitch-deg>
+    </offsets>
+  </model>
+
+
+
+
+</PropertyList>
